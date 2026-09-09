@@ -47,6 +47,7 @@ class AppHandler(SimpleHTTPRequestHandler):
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", os.environ.get("TD_PORT", "8787")))
-    host = os.environ.get("HOST", "127.0.0.1")
+    # Public hosts such as Render require binding on every network interface.
+    host = os.environ.get("HOST", "0.0.0.0")
     print(f"Application disponible sur http://{host}:{port}", flush=True)
     ThreadingHTTPServer((host, port), AppHandler).serve_forever()
